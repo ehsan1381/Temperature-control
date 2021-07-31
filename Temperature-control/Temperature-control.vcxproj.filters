@@ -21,6 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="SRC\Documentation.md" />
+    <None Include="SRC\README.md" />
   </ItemGroup>
 </Project>
