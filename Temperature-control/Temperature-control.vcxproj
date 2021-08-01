@@ -139,11 +139,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SRC\main.c" />
+    <ClCompile Include="SRC\main.c">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Temperature-control\INC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Temperature-control\INC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)Temperature-control\INC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)Temperature-control\INC;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
+    <None Include="PRJ\CodeVision_PRJ.atsln" />
+    <None Include="PRJ\CodeVision_PRJ.cbi" />
+    <None Include="PRJ\CodeVision_PRJ.cof" />
+    <None Include="PRJ\CodeVision_PRJ.cproj" />
+    <None Include="PRJ\CodeVision_PRJ.fct" />
+    <None Include="PRJ\CodeVision_PRJ.prj" />
     <None Include="readme.md" />
+    <None Include="Release\Exe\CodeVision_PRJ.hex" />
+    <None Include="Release\Exe\CodeVision_PRJ.rom" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="INC\alcd.h" />
+    <ClInclude Include="INC\delay.h" />
+    <ClInclude Include="INC\mega16a.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PRJ\CodeVision_PRJ.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
