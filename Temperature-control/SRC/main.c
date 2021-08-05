@@ -1,7 +1,10 @@
 // THIS CODE IS WRITTEN BY @ehsan1381
 
 // PREPROCESSOR
-#define atmega16a
+
+// define chipset bellow
+// currnent supported atmega16
+#define atmega16
 #define _DRIVER_PORT                DDRD
 #define _MAX_TEMP                   40
 #define _ALERT_TEMP                 45
@@ -58,18 +61,28 @@ void WRITE_LCD(int temp, int motor_freq, char drive_state) {
 }
 
 
+// ATMEGA16A chipset code block
+// while compiling you can changed defined chip set
+// in the first few lines and the code will be ready
+// to be compiled for the modified chipset
+#ifdef atmega16
+
 // MOTOR DRIVING MAN FUNC
 void MOTOR_DRIVE_MAN() {
     DRIVE_STATE = 'M';
+
+    // the gear button statemnet 
     if (PIND.7 == 1) {
         MOTOR_GEAR += 5;
         if ((MOTOR_GEAR * _MOTOR_FREQ_STEP) >= _MAX_MOTOR_FREQ) MOTOR_GEAR = 0;
     }
 
+    // motor direction
     if (PIND.6 == 0) {
         PORTD.0 = 0;
         PORTD.1 = 1;
     } 
+    // motor direction
     if (PIND.6 == 1) {
         PORTD.0 = 1;
         PORTD.1 = 0;
@@ -80,53 +93,64 @@ void MOTOR_DRIVE_MAN() {
 // MOTOR DRIVING AUT FUNC
 void MOTOR_DRIVE_AUT(char temp_state, int temp) {
     DRIVE_STATE = 'A';
+
+    // at each case there is a temp state char
+    // as the constant and one gear selecting equation
+    // for each range of temperature
     switch (temp_state) {      
 
+
+
+    // temperature bello _COOL_TEMP_HIGH
     case 'C':
         MOTOR_GEAR = 5;
         break;
 
+    //  _NORM_TEM_LOW <= temperature < _NORM_TEMO_HIGH
     case 'N':
         MOTOR_GEAR = temp / 2.5 + 10;
         break;
 
+
+    //  _WARM_TEM_LOW <= temperature < _WARM_TEMO_HIGH
     case 'W':
         MOTOR_GEAR = temp / 2.5 + 25;
         break;
 
+    //  _MAX_TEMP <= temperature < _ALERT_TEMP
     case 'M':
         MOTOR_GEAR = temp / 2.5 + 20;
         break;
-
+    
+    //  _ALERT_TEMP => temperature
     case 'A':
+        // set as max motor gear
         MOTOR_GEAR = 50; 
         
         break;     
         
     }     
     
+    // somehow useless but just incase
     if (MOTOR_GEAR > 50) MOTOR_GEAR = 50;
     
-        if (PIND.6 == 0) {
+    
+    // motor directions
+    if (PIND.6 == 0) {
         PORTD.0 = 0;
         PORTD.1 = 1;
     } 
     if (PIND.6 == 1) {
         PORTD.0 = 1;
         PORTD.1 = 0;  
-        }
+    }
 }
 
-// LCD CONFIGURATION
-
-// IO SETTINGS
 
 
-
+// ADC SETTINGS
 
 #define ADC_VREF_TYPE ((0<<REFS1) | (0<<REFS0) | (0<<ADLAR))
-
-
 unsigned int read_adc(unsigned char adc_input)
 {
     ADMUX = adc_input | ADC_VREF_TYPE;
@@ -142,9 +166,10 @@ unsigned int read_adc(unsigned char adc_input)
 
 void main(void)
 {
-    
+    // setting driver port IO specification
     _DRIVER_PORT = 0x33;
 
+    // clock frequency settings
     TCCR1A = (1 << COM1A1) | (1 << COM1B1) | (1 << WGM11);
     TCCR1B = (1 << CS10);
 
@@ -152,21 +177,32 @@ void main(void)
     ADMUX = ADC_VREF_TYPE;
     ADCSRA = (1 << ADEN) | (0 << ADSC) | (0 << ADATE) | (0 << ADIF) | (0 << ADIE) | (1 << ADPS2) | (0 << ADPS1) | (0 << ADPS0);
 
+    // lcd initiation
     lcd_init(16);
 
     while (1)
     {
+        // read adc pin 0 
         TEMP = _SENSOR_TEMP_EQ(read_adc(0));
+
+        // define temp state
         DEFINE_TEMP_STATE(TEMP);
         
-        
+        // motor driving
         if(PINA.1 == 1) MOTOR_DRIVE_AUT(TEMP_STATE, TEMP);
         if(PINA.1 == 0) MOTOR_DRIVE_MAN();
 
+        // lcd modifying
         WRITE_LCD(TEMP, MOTOR_GEAR * _MOTOR_FREQ_STEP, DRIVE_STATE);
-                                       
+         
+        // setting motor frequency
         OCR1A = (MOTOR_GEAR * _MOTOR_FREQ_STEP);
-        delay_ms(10);
+
+        // a small delay for some better result
+        delay_ms(5);
 
     }
 }
+
+
+#endif //atmega16
