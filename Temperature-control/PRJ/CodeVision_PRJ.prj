@@ -27,7 +27,7 @@ PageIndex0=0
 OF1=..\SRC\main.c
 Active1=1
 EditorPanel1=0
-TimeStamp1=1392739101
+TimeStamp1=1392881732
 PageIndex1=1
 [CompilerDebug]
 Chip=ATmega16A
@@ -128,7 +128,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=46
+Build=55
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -229,8 +229,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1392881420
-Build=46
+COFFileTimeStamp=1392881748
+Build=55
 IncludePath0=
 IncludePath1=
 IncludePath2=
@@ -487,7 +487,7 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 46
+L17=Build: 54
 L18=11084 line(s) compiled
 L19=No errors
 L20=No warnings
@@ -529,16 +529,16 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1392739111
+TimeStamp=1392881751
 [BookmarksFoldedCode]
 Files=1
 F1=..\SRC\main.c
 [Bookmarks1]
-TimeStamp=1392739101
-Row=146
-Column=0
+TimeStamp=1392881732
+Row=201
+Column=18
 ScrollPosX=0
-ScrollPosY=141
+ScrollPosY=183
 BK0=-1
 BK1=-1
 BK2=-1
@@ -549,8 +549,6 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode1]
-Blocks=0
 [HeadersList]
 Files=1
 F1=E:\Archives\Documents\C - C++ Codes\AVR - Coding\Temperature-control\Temperature-control\SRC\main.c
@@ -563,3 +561,5 @@ F4=E:\Installed Programs\CodeVision-AVR\inc\alcd.h
 F5=E:\Installed Programs\CodeVision-AVR\inc\stdio.h
 F6=E:\Installed Programs\CodeVision-AVR\inc\io.h
 F7=E:\Installed Programs\CodeVision-AVR\inc\stdarg.h
+[FoldedCode1]
+Blocks=0

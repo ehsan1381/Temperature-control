@@ -199,7 +199,7 @@ void main(void)
         OCR1A = (MOTOR_GEAR * _MOTOR_FREQ_STEP);
 
         // a small delay for some better result
-        delay_ms(5);
+        delay_ms(10);
 
     }
 }
